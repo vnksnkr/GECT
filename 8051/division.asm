@@ -1,0 +1,7 @@
+Mov R0,30H
+Mov R1,31H
+Mov A,@R0
+Mov B,@R1
+DIV AB
+Mov 40H,A
+Mov 41H,B

@@ -1,0 +1,28 @@
+INITIAL:Mov R3,20H;number of elements
+Mov R0,10H;address of first element
+Mov R1,10H
+INC R1
+DEC R3
+Mov A,R3
+Mov R4,A
+COMPARE : Mov A,@R0
+SUBB A,@R1
+JNC SW;swap if @RO > @R1
+SJMP DECREMENT
+SW : Mov A,@R0
+Mov R5,A
+Mov A,@R1
+Mov @R0,A
+Mov A,R5
+Mov @R1,A
+DECREMENT: DJNZ R3,COMPARE_NEXT
+Mov R3,20H
+DJNZ R4,NEXT_ITER
+STOP : SJMP STOP
+COMPARE_NEXT : INC R0 ;compare next 2 elemnts
+INC R1
+SJMP COMPARE
+NEXT_ITER:Mov R4,10H
+SJMP INITIAL
+   
+

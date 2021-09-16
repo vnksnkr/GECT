@@ -1,0 +1,11 @@
+Mov R3,#5
+Mov R4,#5
+Mov 10H,#5
+Mov 11H,#20H
+Mov R0,#20H
+LOAD:Mov A,R3
+Mov @R0,A
+DEC R3
+INC R0
+DJNZ R4,LOAD
+STOP:SJMP STOP

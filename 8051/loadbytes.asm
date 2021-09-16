@@ -1,0 +1,7 @@
+Mov R0,#10H
+Mov A,#15H
+Mov R2,#25
+LOOP : Mov @R0,A
+INC R0
+DJNZ R2,LOOP
+STOP: SJMP STOP

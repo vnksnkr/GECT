@@ -1,0 +1,10 @@
+Mov R5,#25
+Mov R0,#10H
+Mov R1,#40H
+L1: Mov A,@R0
+Mov @R1,A
+INC R0
+INC R1
+DJNZ R5,L1
+STOP:SJMP STOP
+
