@@ -3,34 +3,34 @@
 sbit opin = P2^0;
 void delay(unsigned int delaycount){
 
-	unsigned int i,j;
+	unsigned int i;
     for(i=0;i<delaycount;i++){
-        
-        for(j = 0;j<54;j++);
-
+        ;
     }
 
 }
 
 
-int servoctrl(char direction){
+// int servoctrl(char movptrection){
 
-    if(direction == 'L')
-    return 2;
+//     if(movptrection == 'L')
+//     return 2;
 
-    else if(direction == 'R')
-    return 4;
+//     else if(movptrection == 'R')
+//     return 4;
 
-    return 3;
-}
+//     return 3;
+// }
 
 
 void main()
 {
 
-    char direction;
-    int delaycount = 3;
-
+    
+    unsigned char pan,tilt;
+    char * movptr = &pan; 
+    
+    
     SCON = 0x50; // configure to 8 bit UART with variable baud rate
     TMOD = 0x20; // set timer 1 to 8 bit auto reload mode
     TH1 = 0xfd; // set baud rate to 9600
@@ -43,16 +43,32 @@ void main()
         {
             opin = 1;
 			P1 = 0x01;
-            delay(delaycount);
+            delay(pan);
             opin = 0;
-			delay(40);
+			delay(2160);
         }
 
 		P1 = 0x0;
         RI = 0;
     
-        direction = SBUF; //send recieved char to servo controls 
-        delaycount = servoctrl(direction); //change pwn value
+        
+
+        if (SBUF == 'P')
+        {
+            movptr = &pan;
+        }
+        
+
+        else if (SBUF == 'T')
+        {
+            movptr = &tilt;
+        }
+
+        else
+        {
+            *(movptr) = SBUF;
+        }
+
 
     }
 
