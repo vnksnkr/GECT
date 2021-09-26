@@ -1,10 +1,11 @@
 #include<reg51.h>
 
 sbit opin = P2^0;
+sbit opin2 = P2^6;
 void delay(unsigned int delaycount){
 
 	unsigned int i;
-    for(i=0;i<delaycount;i++){
+    for(i=0;i<(delaycount);i++){
         ;
     }
 
@@ -27,7 +28,7 @@ void main()
 {
 
     
-    unsigned char pan,tilt;
+    unsigned char pan=112,tilt=112;
     char * movptr = &pan; 
     
     
@@ -43,8 +44,11 @@ void main()
         {
             opin = 1;
 			P1 = 0x01;
-            delay(pan);
+            delay(pan+41);
             opin = 0;
+			opin2 = 0x01;
+			delay(tilt+41);
+			opin2 = 0; 
 			delay(2160);
         }
 
@@ -53,13 +57,13 @@ void main()
     
         
 
-        if (SBUF == 'P')
+        if (SBUF == 'p')
         {
             movptr = &pan;
         }
         
 
-        else if (SBUF == 'T')
+        else if (SBUF == 't')
         {
             movptr = &tilt;
         }
